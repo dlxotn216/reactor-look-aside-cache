@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: cache-origin
+      username: root
+      password: root
+      authentication-database: admin
+  redis:
+    host: localhost
+    port: 6379
