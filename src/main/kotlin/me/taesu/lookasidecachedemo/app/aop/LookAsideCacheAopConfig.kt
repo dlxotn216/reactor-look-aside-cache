@@ -22,14 +22,15 @@ class LookAsideCacheAopConfig(
         val entityId = argument.entityId
         val documentId = argument.documentId
 
-        return reactiveRedisTemplate.opsForHash<String, Any>().get(entityId, documentId)
+        val key = "$entityId:$documentId"
+        return reactiveRedisTemplate.opsForValue().get(key)
             .onErrorResume {
                 joinPoint.proceed() as Mono<*>
             }
             .switchIfEmpty {
                 val proceed = joinPoint.proceed() as Mono<*>
                 proceed.flatMap { item ->
-                    reactiveRedisTemplate.opsForHash<String, Any>().put(entityId, documentId, item).map { item }
+                    reactiveRedisTemplate.opsForValue().set(key, item).map { item }
                 }
             }
     }

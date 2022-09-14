@@ -66,6 +66,9 @@ fun lookAside(
 (docker exec -it <container-id> redis-cli)
 ![img.png](img.png)
 
+해시 안쓰고 value로 활용해도 될 듯 하다.  
+![img_1.png](img_1.png)
+
 이 상태에서 만약 레디스가 죽었다면, 500에러가 떨어질 것이다.  
 그에 따라서 onErrorResume을 통해 예기치 못한 상황이 발생해도 정상 서비스가 가능하도록 오리진(mongodb)을 조회하게 한다.
 
